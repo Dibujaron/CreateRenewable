@@ -4,7 +4,10 @@
       "Bash(git add -A)",
       "Bash(git commit -m \"$(cat <<''EOF''\nAdd README and complete initial project setup\n\n- Add concise README describing mod purpose\n- Complete renaming from examplemod to createrenewable\n- Update project configuration and structure\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
       "Bash(git config --global user.name \"dibujaron\")",
-      "Bash(git config --global user.email \"dibujaron@gmail.com\")"
+      "Bash(git config --global user.email \"dibujaron@gmail.com\")",
+      "Bash(git push)",
+      "Bash(./gradlew build)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nRefactor package to com.dibujaron.createrenewable\n\n- Update package from com.createrenewable to com.dibujaron.createrenewable\n- Move Java files to new package structure\n- Update gradle.properties with correct group ID\n- Update documentation in claude.md\n- Verify build succeeds with new package structure\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
     ],
     "deny": [],
     "ask": []
