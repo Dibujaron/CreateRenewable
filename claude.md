@@ -51,10 +51,32 @@ src/main/
 └── resources/
     ├── META-INF/
     │   └── neoforge.mods.toml         # Mod metadata (includes Create dependency)
-    └── assets/createrenewable/
-        └── lang/
-            └── en_us.json             # Localization
+    ├── assets/createrenewable/
+    │   └── lang/
+    │       └── en_us.json             # Localization
+    └── data/createrenewable/
+        └── recipe/                    # Recipe JSON files (NOTE: singular "recipe" in 1.21+)
+            └── iron_to_zinc_mixing.json
 ```
+
+## Development Workflow
+
+### Build and Deploy Scripts
+Two scripts are provided for rapid iteration during development:
+- **build-and-deploy.bat** - For Windows Command Prompt
+- **build-and-deploy.sh** - For Git Bash/Unix shells
+
+Both scripts:
+1. Build the mod with Gradle
+2. Delete old versions from the test instance mods folder
+3. Copy the new JAR to `C:\Users\dibuj\curseforge\minecraft\Instances\GC Evergreen\mods`
+
+Usage: `./build-and-deploy.sh` or `build-and-deploy.bat`
+
+### Testing Recipe Changes
+- **Full restart required** - `/reload` does NOT work reliably for Create recipes in 1.21.1
+- After making recipe changes, run build script and restart Minecraft
+- Check logs at: `C:\Users\dibuj\curseforge\minecraft\Instances\GC Evergreen\logs\latest.log`
 
 ## Important Notes
 
@@ -72,21 +94,66 @@ src/main/
    - IntelliJ may auto-save files, causing Edit tool to fail
    - Solution: Close IntelliJ or use bash commands for file modifications
 
+## Create Recipe Format (NeoForge 1.21.1)
+
+### Critical Format Details
+After extensive testing, the correct format for Create mixing recipes in NeoForge 1.21.1 was discovered by extracting actual recipes from the Create mod JAR.
+
+**Key differences from older/Fabric versions:**
+1. **Directory name:** `data/<namespace>/recipe/` (singular, not "recipes") - this is a Minecraft 1.21+ change
+2. **Field names:** Use `heat_requirement` (underscore) NOT `heatRequirement` (camelCase)
+3. **Item ingredients:** Use `"item"` field (old format still works for ingredients)
+4. **Fluid ingredients:** Must use `{"type": "fluid_stack", "amount": <mb>, "fluid": "<fluid_id>"}`
+5. **Results:** Must use `"id"` field (not `"item"`) - this is the 1.21+ format
+
+### Working Mixing Recipe Template
+```json
+{
+  "type": "create:mixing",
+  "heat_requirement": "heated",
+  "ingredients": [
+    {
+      "item": "minecraft:item_name"
+    },
+    {
+      "type": "fluid_stack",
+      "amount": 1000,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "results": [
+    {
+      "count": 3,
+      "id": "minecraft:output_item"
+    }
+  ]
+}
+```
+
+### Fluid Ingredient Types
+- **Specific fluid:** `{"type": "fluid_stack", "amount": 1000, "fluid": "minecraft:water"}`
+- **Fluid tag:** `{"type": "fluid_tag", "amount": 250, "fluid_tag": "c:milk"}`
+
+### Heat Requirements
+- `"heated"` - Requires any heat source (fire, lava, or blaze burner)
+- `"superheated"` - Requires superheated blaze burner
+- Omit field entirely for no heat requirement
+
+### Reference Recipes
+Real Create mixing recipes have been extracted to `reference-mods/create-recipes/` for reference.
+
+## Implemented Recipes
+
+### Zinc Nuggets (Renewable)
+**File:** `iron_to_zinc_mixing.json`
+**Recipe:** 3 iron nuggets + 1 sea pickle + 50mb lava (heated) → 3 zinc nuggets
+**Status:** ✅ Working and tested in-game
+
 ## Next Steps / TODO
 
-1. **Study Create's Recipe System:**
-   - Investigate Create's recipe types (Mixing, Crushing, Compacting, etc.)
-   - Look at Create's data generation for recipes
-
-2. **Reference Mod:**
-   - Decompile Create: Copper & Zinc mod (https://www.curseforge.com/minecraft/mc-mods/create-copper-zinc)
-   - Analyze how they add custom recipes to Create
-
-3. **Implementation Plan:**
-   - Identify which late-game items to make renewable
-   - Design recipe chains using Create's processing methods
-   - Add recipes via JSON files in `src/main/resources/data/createrenewable/recipes/`
-   - Or use data generators to create recipes programmatically
+1. **Copper Nuggets Recipe** - Design and implement renewable copper recipe
+2. **Blaze Rods Recipe** - Design and implement renewable blaze rod recipe
+3. **Netherrack Recipe** - Design and implement renewable netherrack recipe
 
 ## Useful Resources
 - NeoForge Docs: https://docs.neoforged.net/docs/1.21.1/
