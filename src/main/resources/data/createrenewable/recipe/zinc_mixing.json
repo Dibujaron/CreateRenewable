@@ -12,12 +12,21 @@
       "item": "minecraft:iron_nugget"
     },
     {
-      "item": "minecraft:sea_pickle"
+      "item": "minecraft:prismarine_crystals"
+    },
+    {
+      "item": "minecraft:prismarine_crystals"
+    },
+    {
+      "item": "minecraft:prismarine_crystals"
+    },
+    {
+      "item": "minecraft:seagrass"
     },
     {
       "type": "fluid_stack",
       "amount": 50,
-      "fluid": "minecraft:lava"
+      "fluid": "minecraft:water"
     }
   ],
   "results": [
