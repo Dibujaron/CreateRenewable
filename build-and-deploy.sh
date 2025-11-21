@@ -18,8 +18,11 @@ fi
 echo "Build successful!"
 echo "Copying to mods folder..."
 
+# Extract version from gradle.properties
+MOD_VERSION=$(grep "^mod_version=" gradle.properties | cut -d'=' -f2)
+
 TARGET_DIR="/c/Users/dibuj/curseforge/minecraft/Instances/Evergreen s1 v0.4.3/mods"
-JAR_FILE="build/libs/CreateRenewables-NeoForge-1.0.jar"
+JAR_FILE="build/libs/CreateRenewables-NeoForge-${MOD_VERSION}.jar"
 
 # Remove old versions of the mod
 rm -f "$TARGET_DIR"/createrenewable-*.jar "$TARGET_DIR"/CreateRenewable*.jar
