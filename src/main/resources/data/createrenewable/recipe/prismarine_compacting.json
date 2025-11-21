@@ -1,20 +1,25 @@
 {
-  "type": "create:mixing",
-  "heat_requirement": "heated",
+  "type": "create:compacting",
   "ingredients": [
     {
       "item": "minecraft:cobblestone"
     },
     {
-      "item": "minecraft:quartz"
+      "item": "minecraft:quartz_block"
     },
     {
-      "amount": 25,
-      "fluid": "create:potion",
-      "nbt": {
-        "Bottle": "REGULAR",
-        "Potion": "minecraft:swiftness"
-      }
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "type": "fluid_stack",
+      "amount": 50,
+      "components": {
+        "create:potion_fluid_bottle_type": "regular",
+        "minecraft:potion_contents": {
+          "potion": "minecraft:swiftness"
+        }
+      },
+      "fluid": "create:potion"
     }
   ],
   "results": [
