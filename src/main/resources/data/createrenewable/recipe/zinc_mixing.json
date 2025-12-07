@@ -18,15 +18,18 @@
       "item": "minecraft:prismarine_crystals"
     },
     {
-      "item": "minecraft:prismarine_crystals"
+      "item": "minecraft:sea_pickle"
     },
     {
-      "item": "minecraft:seagrass"
-    },
-    {
-      "type": "fluid_stack",
-      "amount": 50,
-      "fluid": "minecraft:water"
+      "type": "neoforge:single",
+      "amount": 75,
+      "components": {
+        "create:potion_fluid_bottle_type": "regular",
+        "minecraft:potion_contents": {
+          "potion": "minecraft:night_vision"
+        }
+      },
+      "fluid": "create:potion"
     }
   ],
   "results": [

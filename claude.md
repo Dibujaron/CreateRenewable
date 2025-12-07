@@ -1,4 +1,4 @@
-# Claude Context - Create: Renewable Mod
+# Claude Context - Create: Renewables Mod
 
 ## Project Overview
 This is a NeoForge 1.21.1 mod that adds recipes to the Create mod to make late-game items renewable.
@@ -20,10 +20,12 @@ The mod focuses on making these four key items renewable through advanced late-g
 ## Key Configuration Details
 
 ### Create Mod Dependency
-- **Version:** 6.0.6-98 (for MC 1.21.1)
+- **Build Dependency Version:** 6.0.6-98 (for MC 1.21.1)
+- **Runtime Test Version:** 6.0.8 (what's installed in test instance)
 - **Maven Repository:** https://maven.createmod.net
 - **Artifact:** `com.simibubi.create:create-1.21.1:6.0.6-98:slim`
 - **Important:** Must use `:slim` classifier and `transitive = false` to avoid pulling in incompatible dependencies
+- **Note:** We build against 6.0.6-98 (latest in Maven) but test with 6.0.8 (latest release). The mod is compatible with both.
 
 ### Build System
 - **Gradle Plugin:** NeoGradle 7.0.192
@@ -68,29 +70,39 @@ Two scripts are provided for rapid iteration during development:
 
 Both scripts:
 1. Build the mod with Gradle
-2. Delete old versions from the test instance mods folder
-3. Copy the new JAR to `C:\Users\dibuj\curseforge\minecraft\Instances\GC Evergreen\mods`
+2. Rename old versions in the test instance mods folder to `.disabled` (so they can be restored)
+3. Copy the new JAR to `C:\Users\dibuj\curseforge\minecraft\Instances\Evergreen S1\mods`
 
 Usage: `./build-and-deploy.sh` or `build-and-deploy.bat`
 
+### Version Management
+**IMPORTANT:** Always bump the version in `gradle.properties` when making changes to recipes, features, or bug fixes!
+- Edit `mod_version` in `gradle.properties` (e.g., 1.2 → 1.3)
+- Follow semantic versioning: MAJOR.MINOR for this mod
+- The build script automatically uses this version for the JAR filename
+
 ### Testing Recipe Changes
+- **Current Test Instance:** `Evergreen S1`
 - **Full restart required** - `/reload` does NOT work reliably for Create recipes in 1.21.1
 - After making recipe changes, run build script and restart Minecraft
-- Check logs at: `C:\Users\dibuj\curseforge\minecraft\Instances\GC Evergreen\logs\latest.log`
+- Check logs at: `C:\Users\dibuj\curseforge\minecraft\Instances\Evergreen S1\logs\latest.log`
 
 ## Important Notes
 
-1. **Create Dependency Declaration in neoforge.mods.toml:**
+1. **Version Management:** **ALWAYS** bump `mod_version` in `gradle.properties` before building when you make recipe changes, bug fixes, or add features!
+
+2. **Create Dependency Declaration in neoforge.mods.toml:**
    - The mod requires Create to be installed
    - Loads AFTER Create (ordering="AFTER")
    - Version range: [0.5.1,)
 
-2. **Gradle Configuration Issues Encountered:**
+3. **Gradle Configuration Issues Encountered:**
    - Initial version `0.5.1.i-76+mc1.21.1` was incorrect
-   - Correct version is `6.0.6-98` for MC 1.21.1
+   - Correct build version is `6.0.6-98` for MC 1.21.1 (latest available in Maven)
+   - Runtime testing uses `6.0.8` (latest release, not yet in Maven for dev)
    - Must disable transitive dependencies to avoid missing FTB, JourneyMap, Curios, etc.
 
-3. **File Watching Issues:**
+4. **File Watching Issues:**
    - IntelliJ may auto-save files, causing Edit tool to fail
    - Solution: Close IntelliJ or use bash commands for file modifications
 
@@ -103,7 +115,7 @@ After extensive testing, the correct format for Create mixing recipes in NeoForg
 1. **Directory name:** `data/<namespace>/recipe/` (singular, not "recipes") - this is a Minecraft 1.21+ change
 2. **Field names:** Use `heat_requirement` (underscore) NOT `heatRequirement` (camelCase)
 3. **Item ingredients:** Use `"item"` field (old format still works for ingredients)
-4. **Fluid ingredients:** Must use `{"type": "fluid_stack", "amount": <mb>, "fluid": "<fluid_id>"}`
+4. **Fluid ingredients (Create 6.0.8+):** Must use `{"type": "neoforge:single", "amount": <mb>, "fluid": "<fluid_id>"}` (old `"fluid_stack"` type still works for backwards compatibility but causes KubeJS warnings)
 5. **Results:** Must use `"id"` field (not `"item"`) - this is the 1.21+ format
 
 ### Working Mixing Recipe Template
@@ -116,7 +128,7 @@ After extensive testing, the correct format for Create mixing recipes in NeoForg
       "item": "minecraft:item_name"
     },
     {
-      "type": "fluid_stack",
+      "type": "neoforge:single",
       "amount": 1000,
       "fluid": "minecraft:water"
     }
@@ -131,8 +143,10 @@ After extensive testing, the correct format for Create mixing recipes in NeoForg
 ```
 
 ### Fluid Ingredient Types
-- **Specific fluid:** `{"type": "fluid_stack", "amount": 1000, "fluid": "minecraft:water"}`
-- **Fluid tag:** `{"type": "fluid_tag", "amount": 250, "fluid_tag": "c:milk"}`
+- **Specific fluid (6.0.8+):** `{"type": "neoforge:single", "amount": 1000, "fluid": "minecraft:water"}`
+- **Fluid tag:** `{"type": "neoforge:tag", "amount": 250, "fluid_tag": "c:milk"}`
+
+Note: The old `"fluid_stack"` type still works for backwards compatibility but causes KubeJS validation warnings.
 
 ### Heat Requirements
 - `"heated"` - Requires any heat source (fire, lava, or blaze burner)
@@ -140,7 +154,7 @@ After extensive testing, the correct format for Create mixing recipes in NeoForg
 - Omit field entirely for no heat requirement
 
 ### Reference Recipes
-Real Create mixing recipes have been extracted to `reference-mods/create-recipes/` for reference.
+Real Create recipes (version 6.0.8) have been extracted to `reference-mods/create-recipes-6.0.8/` for reference.
 
 ## Implemented Recipes
 

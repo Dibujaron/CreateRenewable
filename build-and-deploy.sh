@@ -21,11 +21,16 @@ echo "Copying to mods folder..."
 # Extract version from gradle.properties
 MOD_VERSION=$(grep "^mod_version=" gradle.properties | cut -d'=' -f2)
 
-TARGET_DIR="/c/Users/dibuj/curseforge/minecraft/Instances/Evergreen s1 v0.4.3/mods"
+TARGET_DIR="/c/Users/dibuj/curseforge/minecraft/Instances/Evergreen S1/mods"
 JAR_FILE="build/libs/CreateRenewables-NeoForge-${MOD_VERSION}.jar"
 
-# Remove old versions of the mod
-rm -f "$TARGET_DIR"/createrenewable-*.jar "$TARGET_DIR"/CreateRenewable*.jar
+# Rename old versions of the mod to .disabled so they can be restored later
+for jar in "$TARGET_DIR"/createrenewable-*.jar "$TARGET_DIR"/CreateRenewable*.jar; do
+    if [ -f "$jar" ]; then
+        mv "$jar" "$jar.disabled"
+        echo "Renamed existing mod to: $(basename "$jar").disabled"
+    fi
+done
 
 # Copy new version
 cp "$JAR_FILE" "$TARGET_DIR/"

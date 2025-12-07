@@ -2,24 +2,24 @@
   "type": "create:compacting",
   "ingredients": [
     {
-      "item": "minecraft:cobblestone"
+      "item": "minecraft:red_sand"
+    },
+    {
+      "item": "minecraft:nether_wart"
     },
     {
       "item": "minecraft:quartz"
     },
     {
+      "type": "neoforge:single",
       "amount": 50,
-      "fluid": "create:potion",
-      "nbt": {
-        "Bottle": "REGULAR",
-        "Potion": "minecraft:swiftness"
-      }
+      "fluid": "minecraft:lava"
     }
   ],
   "results": [
     {
       "count": 1,
-      "id": "minecraft:prismarine"
+      "id": "minecraft:netherrack"
     }
   ]
 }

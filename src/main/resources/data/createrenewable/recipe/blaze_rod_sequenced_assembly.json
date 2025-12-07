@@ -1,0 +1,64 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "minecraft:stick"
+  },
+  "loops": 3,
+  "results": [
+    {
+      "id": "minecraft:blaze_rod"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:filling",
+      "ingredients": [
+        {
+          "item": "createrenewable:incomplete_blaze_rod"
+        },
+        {
+          "type": "neoforge:single",
+          "amount": 100,
+          "fluid": "minecraft:lava"
+        }
+      ],
+      "results": [
+        {
+          "id": "createrenewable:incomplete_blaze_rod"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "createrenewable:incomplete_blaze_rod"
+        },
+        {
+          "item": "minecraft:glowstone_dust"
+        }
+      ],
+      "results": [
+        {
+          "id": "createrenewable:incomplete_blaze_rod"
+        }
+      ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "createrenewable:incomplete_blaze_rod"
+        }
+      ],
+      "results": [
+        {
+          "id": "createrenewable:incomplete_blaze_rod"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "createrenewable:incomplete_blaze_rod"
+  }
+}

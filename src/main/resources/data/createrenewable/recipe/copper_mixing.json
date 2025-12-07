@@ -3,39 +3,36 @@
   "heat_requirement": "heated",
   "ingredients": [
     {
-      "item": "minecraft:iron_nugget"
+      "item": "minecraft:gold_nugget"
     },
     {
-      "item": "minecraft:iron_nugget"
+      "item": "minecraft:gold_nugget"
     },
     {
-      "item": "minecraft:iron_nugget"
+      "item": "minecraft:gold_nugget"
     },
     {
-      "item": "minecraft:prismarine_crystals"
+      "item": "minecraft:redstone"
     },
     {
-      "item": "minecraft:prismarine_crystals"
+      "item": "minecraft:clay_ball"
     },
     {
-      "item": "minecraft:prismarine_crystals"
-    },
-    {
-      "item": "minecraft:seagrass"
-    },
-    {
+      "type": "neoforge:single",
       "amount": 75,
-      "fluid": "create:potion",
-      "nbt": {
-        "Bottle": "REGULAR",
-        "Potion": "minecraft:night_vision"
-      }
+      "components": {
+        "create:potion_fluid_bottle_type": "regular",
+        "minecraft:potion_contents": {
+          "potion": "minecraft:healing"
+        }
+      },
+      "fluid": "create:potion"
     }
   ],
   "results": [
     {
       "count": 3,
-      "id": "create:zinc_nugget"
+      "id": "create:copper_nugget"
     }
   ]
 }

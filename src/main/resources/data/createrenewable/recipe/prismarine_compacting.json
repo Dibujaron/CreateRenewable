@@ -11,7 +11,7 @@
       "item": "minecraft:glowstone_dust"
     },
     {
-      "type": "fluid_stack",
+      "type": "neoforge:single",
       "amount": 50,
       "components": {
         "create:potion_fluid_bottle_type": "regular",
