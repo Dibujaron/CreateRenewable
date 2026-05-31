@@ -9,11 +9,12 @@ import net.neoforged.fml.ModContainer;
 @Mod(CreateRenewable.MOD_ID)
 public class CreateRenewable {
     public static final String MOD_ID = "createrenewable";
+    public static final String DISPLAY_NAME = "Create: Renewable";
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public CreateRenewable(IEventBus modEventBus, ModContainer modContainer) {
-        LOGGER.info("Create: Renewable mod initializing...");
-        
-        // TODO: Register custom recipes here
+        LOGGER.info(DISPLAY_NAME + " mod initializing...");
+        ModItems.register(modEventBus);
+        LOGGER.info(DISPLAY_NAME + " initialization complete.");
     }
 }

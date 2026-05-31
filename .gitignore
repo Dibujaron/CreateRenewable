@@ -27,3 +27,6 @@ repo
 
 # reference mods
 reference-mods
+
+# generated icon
+src/main/resources/icon.png

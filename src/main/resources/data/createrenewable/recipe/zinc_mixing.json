@@ -21,7 +21,7 @@
       "item": "minecraft:sea_pickle"
     },
     {
-      "type": "neoforge:single",
+      "type": "neoforge:components",
       "amount": 75,
       "components": {
         "create:potion_fluid_bottle_type": "regular",
@@ -29,7 +29,7 @@
           "potion": "minecraft:night_vision"
         }
       },
-      "fluid": "create:potion"
+      "fluids": "create:potion"
     }
   ],
   "results": [

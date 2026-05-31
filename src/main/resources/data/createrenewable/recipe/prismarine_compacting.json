@@ -11,7 +11,7 @@
       "item": "minecraft:glowstone_dust"
     },
     {
-      "type": "neoforge:single",
+      "type": "neoforge:components",
       "amount": 50,
       "components": {
         "create:potion_fluid_bottle_type": "regular",
@@ -19,7 +19,7 @@
           "potion": "minecraft:swiftness"
         }
       },
-      "fluid": "create:potion"
+      "fluids": "create:potion"
     }
   ],
   "results": [

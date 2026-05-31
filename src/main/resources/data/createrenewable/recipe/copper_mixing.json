@@ -18,7 +18,7 @@
       "item": "minecraft:clay_ball"
     },
     {
-      "type": "neoforge:single",
+      "type": "neoforge:components",
       "amount": 75,
       "components": {
         "create:potion_fluid_bottle_type": "regular",
@@ -26,7 +26,7 @@
           "potion": "minecraft:healing"
         }
       },
-      "fluid": "create:potion"
+      "fluids": "create:potion"
     }
   ],
   "results": [

@@ -115,7 +115,8 @@ After extensive testing, the correct format for Create mixing recipes in NeoForg
 1. **Directory name:** `data/<namespace>/recipe/` (singular, not "recipes") - this is a Minecraft 1.21+ change
 2. **Field names:** Use `heat_requirement` (underscore) NOT `heatRequirement` (camelCase)
 3. **Item ingredients:** Use `"item"` field (old format still works for ingredients)
-4. **Fluid ingredients (Create 6.0.8+):** Must use `{"type": "neoforge:single", "amount": <mb>, "fluid": "<fluid_id>"}` (old `"fluid_stack"` type still works for backwards compatibility but causes KubeJS warnings)
+4. **Fluid ingredients (simple fluids):** Use `{"type": "neoforge:single", "amount": <mb>, "fluid": "<fluid_id>"}` (singular `"fluid"`)
+5. **Fluid ingredients with components (potions):** Use `{"type": "neoforge:components", "amount": <mb>, "components": {...}, "fluids": "<fluid_id>"}` — note `"fluids"` (plural) and type `neoforge:components`. Using `neoforge:single` for component-matched fluids causes "uncraftable potion" display on newer Create versions.
 5. **Results:** Must use `"id"` field (not `"item"`) - this is the 1.21+ format
 
 ### Working Mixing Recipe Template
@@ -143,10 +144,9 @@ After extensive testing, the correct format for Create mixing recipes in NeoForg
 ```
 
 ### Fluid Ingredient Types
-- **Specific fluid (6.0.8+):** `{"type": "neoforge:single", "amount": 1000, "fluid": "minecraft:water"}`
+- **Specific fluid (no components):** `{"type": "neoforge:single", "amount": 1000, "fluid": "minecraft:water"}`
+- **Fluid with components (e.g. potions):** `{"type": "neoforge:components", "amount": 75, "components": {"minecraft:potion_contents": {"potion": "minecraft:healing"}, "create:potion_fluid_bottle_type": "regular"}, "fluids": "create:potion"}` — note `"fluids"` (plural)
 - **Fluid tag:** `{"type": "neoforge:tag", "amount": 250, "fluid_tag": "c:milk"}`
-
-Note: The old `"fluid_stack"` type still works for backwards compatibility but causes KubeJS validation warnings.
 
 ### Heat Requirements
 - `"heated"` - Requires any heat source (fire, lava, or blaze burner)
